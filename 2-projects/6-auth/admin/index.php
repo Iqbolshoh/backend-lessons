@@ -2,12 +2,12 @@
 session_start();
 
 if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] !== true) {
-    header('Location: ./login/');
+    header('Location: ../login/');
     exit;
 }
 
-if ($_SESSION['role'] !== 'user') {
-    header('Location: ./login/');
+if ($_SESSION['role'] !== 'admin') {
+    header('Location: ../login/');
     exit;
 }
 ?>
@@ -32,7 +32,7 @@ if ($_SESSION['role'] !== 'user') {
                         <p class="mb-4"><b><?= $_SESSION['name'] ?></b> Welcome to our platform! Please login or sign up
                             to continue.</p>
                         <div class="d-grid gap-2">
-                            <a href="./logout/" class="btn btn-primary">Logout</a>
+                            <a href="../logout/" class="btn btn-primary">Logout</a>
                         </div>
                     </div>
                 </div>
