@@ -19,7 +19,7 @@ FROM university;
  */
 
 -- 2. SAMDU UNIVERSITETIGA TEGISHLI FAKULTETLAR
-SELECT id, name 
+SELECT `id`, `name` 
 FROM faculty 
 WHERE university_id = 1;
 /*
