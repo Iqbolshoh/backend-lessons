@@ -18,15 +18,15 @@ $data = [
     ],
     [
         "name" => "Artificial Intelligence",
-        "description" => "AI va ML sohalarida Python, TensorFlow, PyTorch, Keras, OpenAI API va boshqa vositalar yordamida mashina o‘rganish tizimlari yaratiladi."
+        "description" => "AI va ML sohalarida Python, TensorFlow, PyTorch, Keras, OpenAI API va boshqa vositalar yordamida mashina o\'rganish tizimlari yaratiladi."
     ],
     [
         "name" => "Cybersecurity",
-        "description" => "Tizimlarni himoya qilish, zaifliklarni aniqlash va hujumlarga qarshi chora ko‘rish uchun Ethical Hacking, Kali Linux, Burp Suite, Metasploit va boshqa vositalar ishlatiladi."
+        "description" => "Tizimlarni himoya qilish, zaifliklarni aniqlash va hujumlarga qarshi chora ko\'rish uchun Ethical Hacking, Kali Linux, Burp Suite, Metasploit va boshqa vositalar ishlatiladi."
     ],
     [
         "name" => "Game Development",
-        "description" => "Video o‘yinlar yaratish uchun Unity, Unreal Engine, C#, C++, Blender va boshqa vositalardan foydalaniladi."
+        "description" => "Video o\'yinlar yaratish uchun Unity, Unreal Engine, C#, C++, Blender va boshqa vositalardan foydalaniladi."
     ],
     [
         "name" => "Cloud Technologies",

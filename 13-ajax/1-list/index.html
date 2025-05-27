@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Talabalar ro'yxati</title>
 </head>
 
@@ -17,10 +18,9 @@
         const loadBtn = document.getElementById('loadBtn');
         const studentList = document.getElementById('studentList');
 
-        let isVisible = false; // Ro'yxat holati
+        let isVisible = false;
 
-        loadBtn.addEventListener('click', async () => {
-            // Agar ro'yxat ochilgan bo‘lsa — yopamiz
+        loadBtn.addEventListener('click', function () {
             if (isVisible) {
                 studentList.style.display = 'none';
                 loadBtn.textContent = "Talabalar";
@@ -28,27 +28,27 @@
                 return;
             }
 
-            // Yopilgan bo‘lsa — ochamiz va ma'lumotlarni yuklaymiz
-            try {
-                const response = await fetch('students.php'); // PHP fayl
-                const students = await response.json();
+            fetch('students.php')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (students) {
+                    studentList.innerHTML = '';
 
-                studentList.innerHTML = '';
+                    students.forEach(function (student) {
+                        const li = document.createElement('li');
+                        li.textContent = student.name + ' - ' + student.age + ' yosh';
+                        studentList.appendChild(li);
+                    });
 
-                students.forEach(student => {
-                    const li = document.createElement('li');
-                    li.textContent = student.name + ' - ' + student.age + ' yosh';
-                    studentList.appendChild(li);
+                    studentList.style.display = 'block';
+                    loadBtn.textContent = "Yopish";
+                    isVisible = true;
+                })
+                .catch(function (error) {
+                    console.error('Xatolik yuz berdi:', error);
+                    studentList.textContent = 'Ma\'lumotlarni yuklashda xatolik!';
                 });
-
-                studentList.style.display = 'block';
-                loadBtn.textContent = "Yopish";
-                isVisible = true;
-
-            } catch (error) {
-                console.error('Xatolik yuz berdi:', error);
-                studentList.textContent = 'Ma\'lumotlarni yuklashda xatolik!';
-            }
         });
     </script>
 

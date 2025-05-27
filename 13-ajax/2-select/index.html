@@ -2,7 +2,8 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Select</title>
 </head>
 
@@ -20,27 +21,33 @@
         const description = document.getElementById('description');
         let dataList = [];
 
-        async function loadData() {
-            try {
-                const response = await fetch('data.php');
-                const data = await response.json();
-                dataList = data;
+        function loadData() {
+            fetch('data.php')
+                .then(function (response) {
+                    return response.json();
+                })
+                .then(function (data) {
+                    dataList = data;
 
-                data.forEach(item => {
-                    const option = document.createElement('option');
-                    option.value = item.name;
-                    option.text = item.name;
-                    select.appendChild(option);
+                    data.forEach(function (item) {
+                        const option = document.createElement('option');
+                        option.value = item.name;
+                        option.text = item.name;
+                        select.appendChild(option);
+                    });
+                })
+                .catch(function (error) {
+                    console.error("Xatolik yuz berdi:", error);
                 });
-
-            } catch (error) {
-                console.error("Xatolik yuz berdi:", error);
-            }
         }
+
         loadData();
 
         select.addEventListener('change', function () {
-            const selected = dataList.find(d => d.name === this.value);
+            const selected = dataList.find(function (d) {
+                return d.name === select.value;
+            });
+
             description.textContent = selected ? selected.description : '';
         });
     </script>

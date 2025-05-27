@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>File Upload</title>
+</head>
+
+<body>
+
+    <h2>Fayl yuklash (PNG, JPG, max 2MB)</h2>
+
+    <form id="uploadForm" enctype="multipart/form-data">
+        <input type="file" name="file" id="fileInput" accept=".png, .jpg, .jpeg" required />
+        <button type="submit">Yuklash</button>
+    </form>
+
+    <p id="responseMsg"></p>
+    <img id="uploadedImg" src="" alt="" style="max-width:300px; display:none; margin-top:10px;" />
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', function (e) {
+            e.preventDefault();
+
+            const fileInput = document.getElementById('fileInput');
+            const file = fileInput.files[0];
+            const responseMsg = document.getElementById('responseMsg');
+            const uploadedImg = document.getElementById('uploadedImg');
+
+            const formData = new FormData();
+            formData.append('file', file);
+
+            fetch('save_file.php', {
+                method: 'POST',
+                body: formData
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.success) {
+                        responseMsg.style.color = 'green';
+                        uploadedImg.style.display = 'block';
+                        uploadedImg.src = data.file;
+                        responseMsg.textContent = data.message;
+                    } else {
+                        responseMsg.style.color = 'red';
+                        uploadedImg.style.display = 'none';
+                        responseMsg.textContent = data.message;
+                    }
+                })
+                .catch(() => {
+                    responseMsg.style.color = 'red';
+                    responseMsg.textContent = 'Server bilan bog\'lanishda xatolik yuz berdi';
+                    uploadedImg.style.display = 'none';
+                });
+        });
+    </script>
+
+</body>
+
+</html>

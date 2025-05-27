@@ -2,91 +2,56 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Ro'yxatdan o'tish</title>
-    <style>
-        .error {
-            color: red;
-            font-weight: bold;
-        }
-
-        .success {
-            color: green;
-        }
-
-        .form-group {
-            margin-bottom: 15px;
-        }
-
-        input {
-            padding: 8px;
-            width: 250px;
-        }
-
-        button {
-            padding: 8px 15px;
-            background: #4CAF50;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-
-        button:hover {
-            background: #45a049;
-        }
-
-        .message {
-            margin-top: 15px;
-            min-height: 20px;
-        }
-    </style>
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
 
 <body>
-    <h2>Ro'yxatdan o'tish</h2>
-    <form id="regForm">
-        <div class="form-group">
-            <input type="text" name="name" id="name" placeholder="Ismingiz" required>
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card p-4 shadow" style="max-width: 400px; width: 100%;">
+            <h2 class="text-center mb-4">Ro'yxatdan o'tish</h2>
+            <form id="regForm" novalidate>
+                <div class="mb-3">
+                    <input type="text" name="name" class="form-control" placeholder="Ismingiz" required />
+                </div>
+                <div class="mb-3">
+                    <input type="text" name="username" class="form-control" placeholder="Foydalanuvchi nomi" required />
+                </div>
+                <div class="mb-3">
+                    <input type="password" name="password" class="form-control" placeholder="Parol" required />
+                </div>
+                <button type="submit" class="btn btn-success w-100">Ro'yxatdan o'tish</button>
+                <div id="message" class="mt-3 text-center"></div>
+            </form>
         </div>
-        <div class="form-group">
-            <input type="text" name="username" id="username" placeholder="Username" required>
-        </div>
-        <div class="form-group">
-            <input type="password" name="password" id="password" placeholder="Parol" required>
-        </div>
-        <button type="submit">Jo'natish</button>
-        <div id="message" class="message"></div>
-    </form>
+    </div>
+
+    <!-- Bootstrap 5 JS + Popper (optional, for tooltips if needed) -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <script>
         document.getElementById('regForm').addEventListener('submit', function (e) {
             e.preventDefault();
-
-            const messageElement = document.getElementById('message');
-            messageElement.innerHTML = '';
-            messageElement.className = 'message';
-
-            const formData = new FormData(this);
+            const message = document.getElementById('message');
+            message.textContent = '';
+            message.className = '';
 
             fetch('register.php', {
                 method: 'POST',
-                body: formData
+                body: new FormData(this)
             })
-                .then(response => response.json())
+                .then(r => r.json())
                 .then(data => {
-                    if (data.success) {
-                        messageElement.textContent = data.message;
-                        messageElement.classList.add('success');
-                        document.getElementById('regForm').reset();
-                    } else {
-                        messageElement.textContent = data.message;
-                        messageElement.classList.add('error');
-                    }
+                    message.textContent = data.message;
+                    message.classList.add(data.success ? 'text-success' : 'text-danger', 'fw-bold');
+                    if (data.success) this.reset();
                 })
-                .catch(error => {
-                    messageElement.textContent = 'Xatolik yuz berdi. Iltimos, keyinroq urunib ko\'ring.';
-                    messageElement.classList.add('error');
-                    console.error('Error:', error);
+                .catch(() => {
+                    message.textContent = "Xatolik yuz berdi";
+                    message.className = 'text-danger fw-bold';
                 });
         });
     </script>
