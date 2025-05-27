@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Select</title>
+</head>
+
+<body>
+
+    <h3>Bo'limni tanlang</h3>
+    <select id="select">
+        <option selected disabled>Tanlang...</option>
+    </select>
+
+    <p id="description"></p>
+
+    <script>
+        const select = document.getElementById('select');
+        const description = document.getElementById('description');
+        let dataList = [];
+
+        async function loadData() {
+            try {
+                const response = await fetch('data.php');
+                const data = await response.json();
+                dataList = data;
+
+                data.forEach(item => {
+                    const option = document.createElement('option');
+                    option.value = item.name;
+                    option.text = item.name;
+                    select.appendChild(option);
+                });
+
+            } catch (error) {
+                console.error("Xatolik yuz berdi:", error);
+            }
+        }
+        loadData();
+
+        select.addEventListener('change', function () {
+            const selected = dataList.find(d => d.name === this.value);
+            description.textContent = selected ? selected.description : '';
+        });
+    </script>
+
+</body>
+
+</html>

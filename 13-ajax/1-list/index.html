@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Talabalar ro'yxati</title>
+</head>
+
+<body>
+
+    <h3>Talabalar ro'yxatini olish uchun tugmani bosing</h3>
+    <button id="loadBtn">Talabalar</button>
+
+    <ul id="studentList" style="display: none;"></ul>
+
+    <script>
+        const loadBtn = document.getElementById('loadBtn');
+        const studentList = document.getElementById('studentList');
+
+        let isVisible = false; // Ro'yxat holati
+
+        loadBtn.addEventListener('click', async () => {
+            // Agar ro'yxat ochilgan bo‘lsa — yopamiz
+            if (isVisible) {
+                studentList.style.display = 'none';
+                loadBtn.textContent = "Talabalar";
+                isVisible = false;
+                return;
+            }
+
+            // Yopilgan bo‘lsa — ochamiz va ma'lumotlarni yuklaymiz
+            try {
+                const response = await fetch('students.php'); // PHP fayl
+                const students = await response.json();
+
+                studentList.innerHTML = '';
+
+                students.forEach(student => {
+                    const li = document.createElement('li');
+                    li.textContent = student.name + ' - ' + student.age + ' yosh';
+                    studentList.appendChild(li);
+                });
+
+                studentList.style.display = 'block';
+                loadBtn.textContent = "Yopish";
+                isVisible = true;
+
+            } catch (error) {
+                console.error('Xatolik yuz berdi:', error);
+                studentList.textContent = 'Ma\'lumotlarni yuklashda xatolik!';
+            }
+        });
+    </script>
+
+</body>
+
+</html>
