@@ -9,47 +9,25 @@
 
 <body>
 
-    <h3>Talabalar ro'yxatini olish uchun tugmani bosing</h3>
-    <button id="loadBtn">Talabalar</button>
+    <h3>Talabalar ro'yxati</h3>
 
-    <ul id="studentList" style="display: none;"></ul>
+    <ul id="studentList"></ul>
 
     <script>
-        const loadBtn = document.getElementById('loadBtn');
-        const studentList = document.getElementById('studentList');
+        let studentList = document.getElementById('studentList');
 
-        let isVisible = false;
-
-        loadBtn.addEventListener('click', function () {
-            if (isVisible) {
-                studentList.style.display = 'none';
-                loadBtn.textContent = "Talabalar";
-                isVisible = false;
-                return;
+        fetch('students.php')
+            .then(response => response.json())
+            .then(students => {
+                // students.sort((a, b) => a.age - b.age);
+                students.forEach(student => {
+                    let li = document.createElement('li')
+                    li.textContent = student.name + " " + student.age
+                    studentList.append(li)
+                })
             }
+            )
 
-            fetch('students.php')
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (students) {
-                    studentList.innerHTML = '';
-
-                    students.forEach(function (student) {
-                        const li = document.createElement('li');
-                        li.textContent = student.name + ' - ' + student.age + ' yosh';
-                        studentList.appendChild(li);
-                    });
-
-                    studentList.style.display = 'block';
-                    loadBtn.textContent = "Yopish";
-                    isVisible = true;
-                })
-                .catch(function (error) {
-                    console.error('Xatolik yuz berdi:', error);
-                    studentList.textContent = 'Ma\'lumotlarni yuklashda xatolik!';
-                });
-        });
     </script>
 
 </body>

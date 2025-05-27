@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fetch</title>
+    <style>
+        .item {
+            border: 1px solid black;
+            border-radius: 15px;
+            padding: 10px 25px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="container"></div>
+
+    <script>
+        let container = document.getElementById('container')
+
+        fetch('https://iqbolshoh.uz/regions.php')
+            .then(response => response.json())
+            .then(regions =>
+                regions.forEach(region => {
+                    let item = document.createElement('div')
+                    item.classList.add('item');
+                    let h2 = document.createElement('h2')
+                    h2.textContent = region.region
+                    let ul = document.createElement('ul')
+
+                    region.districts.forEach(district => {
+                        let li = document.createElement('li')
+                        li.textContent = district
+                        ul.append(li)
+                    })
+
+                    item.append(h2)
+                    item.append(ul)
+                    container.append(item)
+                })).catch(function (error) {
+                    console.error("Xatolik yuz berdi:", error);
+                });
+    </script>
+</body>
+
+</html>

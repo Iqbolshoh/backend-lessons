@@ -17,34 +17,28 @@
     <p id="description"></p>
 
     <script>
-        const select = document.getElementById('select');
-        const description = document.getElementById('description');
+        let select = document.getElementById('select');
+        let description = document.getElementById('description');
         let dataList = [];
 
-        function loadData() {
-            fetch('data.php')
-                .then(function (response) {
-                    return response.json();
-                })
-                .then(function (data) {
-                    dataList = data;
+        fetch('data.php')
+            .then((response) => response.json())
+            .then(function (data) {
+                dataList = data;
 
-                    data.forEach(function (item) {
-                        const option = document.createElement('option');
-                        option.value = item.name;
-                        option.text = item.name;
-                        select.appendChild(option);
-                    });
-                })
-                .catch(function (error) {
-                    console.error("Xatolik yuz berdi:", error);
+                data.forEach(function (item) {
+                    let option = document.createElement('option');
+                    option.value = item.name;
+                    option.text = item.name;
+                    select.appendChild(option);
                 });
-        }
-
-        loadData();
+            })
+            .catch(function (error) {
+                console.error("Xatolik yuz berdi:", error);
+            });
 
         select.addEventListener('change', function () {
-            const selected = dataList.find(function (d) {
+            let selected = dataList.find(function (d) {
                 return d.name === select.value;
             });
 
