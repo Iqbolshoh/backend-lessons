@@ -63,7 +63,9 @@
                 confirmButtonText: 'Jo‘natish',
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(`Salom, ${result.value}! 👋`);
+                    Swal.fire({
+                        title: `Salom, ${result.value}! 👋`
+                    });
                 }
             });
         }
@@ -80,11 +82,11 @@
                 cancelButtonText: 'Bekor qilish'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    Swal.fire(
-                        'O‘chirildi!',
-                        'Maʼlumotlar o‘chirildi.',
-                        'success'
-                    );
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Bajarildi!',
+                        text: 'Amaliyot muvaffaqiyatli tugadi 😊'
+                    });
                 }
             });
         }
