@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>SweetAlert2</title>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+
+<body>
+
+    <h1>SweetAlert2 To‘liq Misollar 👇</h1>
+
+    <button onclick="oddiyAlert()">1. Oddiy Alert</button>
+    <button onclick="successAlert()">2. Success Alert</button>
+    <button onclick="errorAlert()">3. Error Alert</button>
+    <button onclick="inputAlert()">4. Input bilan Alert</button>
+    <button onclick="confirmAlert()">5. Confirm Alert</button>
+    <button onclick="timerAlert()">6. Timer bilan Alert</button>
+    <button onclick="toastAlert()">7. Toast Alert</button>
+
+    <script>
+        function oddiyAlert() {
+            Swal.fire({
+                title: 'Salom, do‘stim! 👋'
+            });
+        }
+
+        function successAlert() {
+            Swal.fire({
+                icon: 'success',
+                title: 'Bajarildi!',
+                text: 'Amaliyot muvaffaqiyatli tugadi 😊'
+            });
+        }
+
+        function errorAlert() {
+            Swal.fire({
+                icon: 'error',
+                title: 'Xatolik!',
+                text: 'Nimadadir muammo yuz berdi 😥',
+            });
+        }
+
+        function inputAlert() {
+            Swal.fire({
+                title: 'Ismingizni kiriting',
+                input: 'text',
+                inputPlaceholder: 'Masalan: Iqbolshoh',
+                showCancelButton: true,
+                confirmButtonText: 'Jo‘natish',
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(`Salom, ${result.value}! 👋`);
+                }
+            });
+        }
+
+        function confirmAlert() {
+            Swal.fire({
+                title: 'Ishonchingiz komilmi?',
+                text: "Bu amalni bekor qilib bo‘lmaydi!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ha, o‘chirish!',
+                cancelButtonText: 'Bekor qilish'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    Swal.fire(
+                        'O‘chirildi!',
+                        'Maʼlumotlar o‘chirildi.',
+                        'success'
+                    );
+                }
+            });
+        }
+
+        function timerAlert() {
+            Swal.fire({
+                title: 'Avtomatik yopiladi ⏳',
+                text: 'Bu alert 3 soniyadan so‘ng yopiladi.',
+                timer: 3000,
+                timerProgressBar: true,
+                didOpen: () => {
+                    Swal.showLoading();
+                },
+            });
+        }
+
+        function toastAlert() {
+            Swal.fire({
+                toast: true,
+                position: 'top-end',
+                icon: 'success',
+                title: 'Toast alert ishladi! 🎉',
+                showConfirmButton: false,
+                timer: 3000,
+                timerProgressBar: true,
+            });
+        }
+    </script>
+
+</body>
+
+</html>
