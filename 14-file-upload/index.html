@@ -12,7 +12,7 @@
     <h2>Fayl yuklash (PNG, JPG, max 2MB)</h2>
 
     <form id="uploadForm" enctype="multipart/form-data">
-        <input type="file" name="file" id="fileInput" accept=".png, .jpg, .jpeg" required />
+        <input type="file" name="file" id="fileInput" required />
         <button type="submit">Yuklash</button>
     </form>
 
@@ -28,8 +28,7 @@
             const responseMsg = document.getElementById('responseMsg');
             const uploadedImg = document.getElementById('uploadedImg');
 
-            const formData = new FormData();
-            formData.append('file', file);
+            const formData = new FormData(this);
 
             fetch('save_file.php', {
                 method: 'POST',
